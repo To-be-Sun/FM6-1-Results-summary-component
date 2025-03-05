@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results Summary Component</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: hsl(221, 100%, 96%);
+    }
+
+    .container {
+      display: flex;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      max-width: 700px;
+      width: 90%;
+    }
+
+    .result {
+      background: linear-gradient(to bottom, hsl(252, 100%, 67%), hsl(241, 81%, 54%));
+      color: white;
+      padding: 30px;
+      text-align: center;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 15px;
+    }
+
+    .result h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .score-circle {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .summary {
+      width: 50%;
+      padding: 30px;
+    }
+
+    .summary h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .reaction { background: hsl(0, 100%, 97%); color: hsl(0, 100%, 67%); }
+    .memory { background: hsl(39, 100%, 97%); color: hsl(39, 100%, 56%); }
+    .verbal { background: hsl(166, 100%, 97%); color: hsl(166, 100%, 37%); }
+    .visual { background: hsl(234, 85%, 97%); color: hsl(234, 85%, 45%); }
+
+    .btn {
+      display: block;
+      text-align: center;
+      padding: 10px;
+      background: hsl(224, 30%, 27%);
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        flex-direction: column;
+        width: 90%;
+      }
+
+      .result {
+        width: 100%;
+        padding: 20px;
+        border-radius: 0;
+      }
+
+      .summary {
+        width: 100%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="result">
+      <h2>Your Result</h2>
+      <div class="score-circle" id="score">--<br><span style="font-size: 14px; opacity: 0.8;">of 100</span></div>
+      <h3 id="result-text">--</h3>
+      <p>You scored higher than 65% of the people who have taken these tests.</p>
+    </div>
+    <div class="summary">
+      <h3>Summary</h3>
+      <div id="summary-list"></div>
+      <a href="#" class="btn">Continue</a>
+    </div>
+  </div>
+
+  <script>
+    fetch('data.json')
+      .then(response => response.json())
+      .then(data => {
+        let totalScore = 0;
+        data.forEach(item => {
+          totalScore += item.score;
+          const div = document.createElement('div');
+          div.classList.add('summary-item', item.category.toLowerCase());
+          div.innerHTML = `${item.category} <span>${item.score} / 100</span>`;
+          document.getElementById('summary-list').appendChild(div);
+        });
+        document.getElementById('score').innerHTML = `${Math.round(totalScore / data.length)}<br><span style="font-size: 14px; opacity: 0.8;">of 100</span>`;
+        document.getElementById('result-text').innerText = 'Great';
+      });
+  </script>
+</body>
+</html>
