@@ -1,3 +1,5 @@
+公開url: https://to-be-sun.github.io/FM6-1-Results-summary-component/
+
 # Frontend Mentor - Results summary component
 
 ![Design preview for the Results summary component coding challenge](./preview.jpg)
@@ -95,5 +97,3 @@ We love receiving feedback! We're always looking to improve our challenges and o
 This challenge is completely free. Please share it with anyone who will find it useful for practice.
 
 **Have fun building!** 🚀
-
-公開url: https://to-be-sun.github.io/FM6-1-Results-summary-component/
